@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <nav>
+        <a class="logo" href="/">Rolsa Technologies</a>
+
+        <a href="{{ url_for('home') }}">Home</a>
+        
+        <button class="dropdown-btn">Products
+            <img class="dropdown-arrow" src="{{ url_for('static', filename='img/caret-down.png') }}" alt="Down arrow">
+        </button>
+        <div class="dropdown-container">
+            <a href="{{ url_for('products', product_type='Solarpanel') }}">Solar Panels</a>
+            <a href="{{ url_for('products', product_type='EVcharger') }}">EV Chargers</a>
+            <a href="{{ url_for('products', product_type='HEMS') }}">Home EMS's</a>
+        </div>
+
+        <a href="{{ url_for('reduceFootprint') }}">Reduce Carbon Footprint</a>
+        <a href="{{ url_for('calculateFootprint') }}">Calculate Carbon Footprint</a>
+        <a href="{{ url_for('calculateUsage') }}">Calculate Energy Usage</a>
+      
+        <!-- Locked behind login -->
+        <!--
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('trackUsage') }}">Track Energy Usage</a>
+        {% endif %}
+        -->
+
+        <div class="dropup">
+            <button class="dropup-btn">
+                <img class="user-icon" src="{{ url_for('static', filename='img/user.png') }}" alt="User icon">
+            </button>
+            <div class="dropup-container">
+                <!-- Locked behind login -->
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('manageAppointment') }}">Manage Consultations</a>
+                    <a href="{{ url_for('settings') }}">Settings</a>
+                    <a href="{{ url_for('logout') }}">Log out</a>
+    
+                <!-- Has to be logged out -->
+                {% else %}
+                    <a href="{{ url_for('login') }}">Log in</a>
+                    <a href="{{ url_for('signUp') }}">Sign up</a>
+                {% endif %}
+            </div>
+        </div>
+        
+
+    </nav>
+
+    <div class="flex-container">
+        <main>
+            <h1 class="white">{% block heading %}{% endblock heading %}</h1>
+            {% block content %}
+                
+            {% endblock content %}
+        </main>
+
+        <footer>
+            <!-- needs privacy policy, cookie poilcy, terms and conditions, accessibility options, cookie preferences 
+             contact form, feedback form, social media icons -->
+            <menu>
+                <li><a href="{{ url_for('policies') }}">Privacy & Cookie Policy</a></li>
+                <li>Terms & Conditions</li>
+            </menu>
+
+            <menu>
+                <li><a href="{{ url_for('settings') }}">Cookie Preferences</a></li>
+            </menu>
+
+            <menu>
+                <li><a href="mailto:email@example.com">Email us</a></li>
+            </menu>
+
+            <menu class="social-icons">
+                <a href="https://en-gb.facebook.com/" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook icon">
+                </a>
+                <a href="https://www.instagram.com/" target="_blank">
+                    <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram icon">
+                </a>
+                <a href="https://gb.linkedin.com/" target="_blank">
+                    <img src="{{ url_for('static', filename='img/linkedin.png') }}" alt="LinkedIn icon">
+                </a>
+            </menu>
+        </footer>
+    </div>
+
+    <!-- script for dropdowns -->
+    <script>
+        var dropdown = document.getElementsByClassName('dropdown-btn');
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function() {
+              this.classList.toggle("active");
+              var dropdownContent = this.nextElementSibling;
+              if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+              } else {
+                dropdownContent.style.display = "block";
+              }
+            });
+        }
+    </script>
+
+    <!-- script for the dropup user icon-->
+    <script>
+        var dropup = document.getElementsByClassName('dropup-btn');
+        var i;
+
+        for (i = 0; i < dropup.length; i++) {
+            dropup[i].addEventListener("click", function() {
+              var dropupContent = this.nextElementSibling;
+              if (dropupContent.style.display === "block") {
+                dropupContent.style.display = "none";
+              } else {
+                dropupContent.style.display = "block";
+              }
+            });
+        }
+    </script>
+
+    {% block scripts %}{% endblock scripts %}
+
+</body>
+</html>

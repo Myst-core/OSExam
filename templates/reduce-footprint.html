@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}
+    Reduce Carbon Footprint
+{% endblock title %}
+{% block heading %}
+    What you can do to reduce your Carbon Footprint
+{% endblock heading %}
+{% block content %}
+    <p class="description">A carbon footprint is the total amount of greenhouse gases, like carbon dioxide (CO<sub>2</sub>), that are released into the atmosphere because of your activities. 
+        These gases trap heat and contribute to climate change. 
+        Your carbon footprint includes things like the fuel burned by your car, the electricity you use, the food you eat, 
+        and even the products you buy—because making and transporting them also creates emissions.</p>
+
+    <div class="reduce-box">
+        <div style="display: block;">
+            <h2 class="white">1. Choose local food to eat</h2>
+            <p>Fossil fuels are used in vehicles to tranport your food. When fossil fuels burn, 
+                they release CO<sub>2</sub> into the air. If you buy local, the food spends less time in a vehicle, 
+                meaning less CO<sub>2</sub> into the air!</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/localproduce.jpg') }}" alt="">
+    </div>
+    <div class="reduce-box">
+        <div style="display: block;">
+            <h2 class="white">2. Don't buy fast fashion</h2>
+            <p>Cheap clothes that go out of fashion quickly, end up in landfills, and over time, produce methane as they decompose.
+                Methane is a greenhouse gas, which stops heat from leaving the atmosphere and therefore heating the planet up!
+            </p>
+        </div>
+        <img src="{{ url_for('static', filename='img/clotheslandfill.jpg') }}" alt="">
+    </div>
+    <div class="reduce-box">
+        <div style="display: block;">
+            <h2 class="white">3. Drive less and walk more</h2>
+            <p>As you drive, your vehicle's engine releases CO<sub>2</sub> into the air. 
+                Take public transport, ride a bike or walk to your destination.
+                This will reduce the amount of CO<sub>2</sub> getting into the air as there are less vehicles on the road.</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/cycling.jpg') }}" alt="">
+    </div>
+    <div class="reduce-box">
+        <div style="display: block;">
+            <h2 class="white">4. Recycle</h2>
+            <p>Handling waste can be a carbon-intensive process. 
+                Recycling reduces the waste going to landfills and gives plastics made from fossil fuels a second life.</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/recycling.jpg') }}" alt="">
+    </div>
+    <div class="reduce-box">
+        <div style="display: block;">
+            <h2 class="white">5. Turn off lights and unplug appliances when not in use</h2>
+            <p>Many people waste energy by leaving unused lights on for hours. 
+                Another common energy-wasting habit is leaving appliances plugged in when not in use. 
+                Modern appliances in stand-by mode draw small amounts of power all the time. 
+                When you unplug appliances, you can save energy.</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/appliances.jpg') }}" alt="">
+    </div>
+
+{% endblock content %}

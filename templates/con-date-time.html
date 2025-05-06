@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+    Schedule Consultation
+{% endblock title %}
+{% block heading %}
+    Schedule Consultation
+{% endblock heading %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for catagory, message in messages %}
+                    <li class="{{ catagory }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form id="form" class="white" action="/consultation-step1" method="post">
+        <label for="date">Select a date:</label>
+        <input name="date" type="date" placeholder="Date"><br>
+        
+        <div id="times-div">
+            <label>Select a time:</label>
+            <div id="times-box">
+                <button type="submit" name="time" value="900">9am</button>
+                <button type="submit" name="time" value="1000">10am</button>
+                <button type="submit" name="time" value="1100">11am</button>
+                <button type="submit" name="time" value="1200">12pm</button>
+                <button type="submit" name="time" value="1300">1pm</button>
+                <button type="submit" name="time" value="1400">2pm</button>
+                <button type="submit" name="time" value="1500">3pm</button>
+                <button type="submit" name="time" value="1600">4pm</button> 
+            </div>
+        </div>
+    </form>
+{% endblock content %}

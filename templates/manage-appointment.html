@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}
+    Manage Appointments
+{% endblock title %}
+{% block heading %}
+    Manage Appointments
+{% endblock heading %}
+{% block content %}
+    <p class="description">
+        This page helps you keep track of your consultations.
+        You can view the date and time of the appointment, along with the product it was for.
+        You can also see the status of the appointment either 'Booked', 'Denied' or 'Successful'.
+        If the appointment is 'Successful', yuo can book an installation from here.
+    </p>
+
+    <!-- appointment list order -->
+     <!-- 
+    0- user id
+    1- date
+    2- time
+    3- product name
+    4- status (e.g.,  booked)
+    -->
+    
+    <br>
+    <form action="/manage-appointments" method="post">
+        <table>
+            <thead>
+                <th id="datecol">Date</th>
+                <th id="timecol">Time</th>
+                <th id="productcol">Product</th>
+                <th id="statcol">Status</th>
+            </thead>
+            {% for i in appointments %}
+            <tr>
+                <td>{{ i[1] }}</td>
+                <td>{{ i[2][0:2] }}:{{ i[2][2:4] }}</td> <!-- this splits the time so i can format it to 00:00 -->
+                <td>{{ i[3] }}</td>
+                <td>{{ i[4] }}</td>
+            </tr>
+            {% endfor %}
+            
+        </table>
+    </form>
+    
+{% endblock content %}

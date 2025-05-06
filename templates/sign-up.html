@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+    Create Account
+{% endblock title %}
+{% block heading %}
+    Create Account
+{% endblock heading %}
+{% block content %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for catagory, message in messages %}
+                    <li class="{{ catagory }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form id="form" action="/sign-up" method="post" autocomplete="on">
+        <div style="display: flex;">
+            <div>
+                <input type="text" name="fname" id="fname" placeholder="Firstname" ><br>
+                <input type="text" name="sname" id="sname" placeholder="Surname" ><br>
+                <input type="email" name="email" id="email" placeholder="Email" ><br>
+                <input type="text" name="phone" id="phone" placeholder="Phone number" ><br>
+            </div>
+            <div>
+                <input type="text" name="addrline" id="addrline" placeholder="Address Line" ><br>
+                <input type="text" name="towncity" id="towncity" placeholder="Town or City" ><br>
+                <input type="text" name="county" id="county" placeholder="County" ><br>
+                <input type="text" name="postcode" id="postcode" placeholder="Postcode"  pattern="/[A-Z]{1,2}[0-9]{1,2}[A-Z]?\s?[0-9][A-Z]{2}/i"><br>
+            </div> 
+        </div>
+        <p class="form-q white"><a href="#" class="white">Why do we need this information?</a></p>
+        
+        <input type="password" name="password1" id="password1" placeholder="Password" ><br>
+        <input type="password" name="password2" id="password2" placeholder="Re-enter Password" >
+
+        <p class="form-q white">Have an account? <a href="{{ url_for('login') }}" class="white">Log in</a></p>
+        <button type="submit">Sign up</button>
+
+    </form>
+{% endblock content %}

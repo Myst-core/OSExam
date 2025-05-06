@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ type }}
+{% endblock title %}
+{% block heading  %}
+    {{ type }}
+{% endblock heading %}
+{% block content %}
+
+    <!-- Product list order -->
+    <!-- 
+     0- product ID
+     1- product name 
+     2- company
+     3- price
+     4- type (e.g., solarpanel)
+     5- photo url 
+    -->
+    {% if type == "Solar Panels" %}
+        <p class="description">
+            Solar panels are devices that capture sunlight and turn it into electricity. 
+            They are made up of special cells that absorb sunlight and 
+            convert it into usable power for your home. 
+            This means you can generate your own clean energy, 
+            reducing electricity bills and helping the environment by using renewable energy 
+            instead of fossil fuels!
+        </p>
+    {% endif %}
+    {% if type == "EV Chargers" %}
+        <p class="description">
+            EV chargers are devices that charge electric vehicles (EVs)
+            by supplying them with electricity. 
+            They plug into your car and refill the battery, 
+            just like a fuel pump does for gas-powered cars. 
+            With an EV charger at home, you can charge your vehicle conveniently, 
+            reduce running costs, and support a cleaner environment by using electricity 
+            instead of petrol or diesel!
+        </p>
+    {% endif %}
+    {% if type == "Home EMS's" %}
+        <p class="description">
+            Home Energy Management Systems (EMS) are smart devices that help you monitor and 
+            control your home's energy use. They connect to appliances, solar panels, and EV chargers, 
+            giving you real-time data on electricity consumption. 
+            With an EMS, you can optimize energy use, save money on bills, 
+            and reduce waste, making your home more efficient and environmentally friendly!
+        </p>
+    {% endif %}
+    
+    <div class="product-container">
+        {% for product in products %}
+            <a class="main-product-box" href="{{ url_for('product_details', product_id=product[0] ) }}">
+                <h2>{{ product[1] }}</h2>
+                {% if product[5] %}
+                    <img class="product-img" src="static/img/+<product[4]>" alt="Product photo">
+                {% else %}
+                    <img class="product-img" src="{{ url_for('static', filename='img/placeholder-img.png') }}" alt="Placeholder photo"> 
+                {% endif %}
+                <p class="company">{{ product[2] }}</p>
+                <p class="price">£{{ product[3] }}</p>
+            </a>
+        {% endfor %}
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home
+{% endblock title %}
+{% block heading %}
+    Rolsa Technologies
+{% endblock heading %} 
+{% block content %}
+
+    <div class="cookies-infobar">
+  
+        If you continue to use this site means you accept Terms and Conditions and Privacy Policy. 
+        We use cookies to ensure that we give you the best experience on our website.
+        <a href="#">Read terms and conditions</a>
+        <div class="cookies-infobar_wrapper">
+        <a href="#" id="cookies-infobar-close" class="cookies-infobar_btn">Accept</a>
+        <a href="about:blank" class="cookies-infobar_btn">Reject</a>
+        </div>
+    
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for catagory, message in messages %}
+                    <li class="{{ catagory }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <p class="description">Welcome to a smarter, greener way to power your home! 
+        This website is your one-stop guide to green energy, 
+        offering solutions like solar panels, EV chargers, and home energy management systems (HEMS). 
+        You can book consultations and installation to make your home more energy-efficient 
+        and sustainable.
+        <br><br>
+        You'll also find useful information on energy usage and carbon footprint, 
+        helping you make informed choices to save money, reduce waste, and protect the planet. 
+    </p>
+    <br><br>
+
+    <div id="home-product-buttons">
+        <a href="{{ url_for('products', product_type='Solarpanel') }}" class="home-product-button">Solar Panels</a>
+        <a href="{{ url_for('products', product_type='EVcharger') }}" class="home-product-button">EV Chargers</a>
+        <a href="{{ url_for('products', product_type='HEMS') }}" class="home-product-button">Home EMS's</a>
+    </div>
+
+    <br><br><br>
+    <h2 class="white">Carbon Footprint</h2>
+    <div style="display: flex;">
+        <figure>
+            <img src="{{ url_for('static', filename='img/carbonfootprint1.jpg') }}" alt="Image on carbon footprint">
+        </figure>
+        <p>A carbon footprint is the total amount of greenhouse gases, especially carbon dioxide (CO₂), 
+            that are released into the atmosphere due to your activities—like driving a car, using electricity, 
+            or even the food you eat. The more CO₂ released, the bigger your carbon footprint.
+            <br><br>
+            On this website, you can 
+            <a href="{{ url_for('calculateFootprint') }}">calculate your own carbon footprint</a> 
+            and learn <a href="{{ url_for('reduceFootprint') }}">easy ways to reduce it</a> —from saving energy to making more eco-friendly choices. 
+            Every small change helps protect the planet!</p>
+    </div>
+    <video muted autoplay controls>
+        <source src="{{ url_for('static', filename='vid/carbonfootprintvid.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <br><br><br>
+    <h2 class="white">Energy Usage</h2>
+    <div style="display: flex;">
+        <p>Energy usage is the amount of electricity or fuel you use to power things like 
+            lights, appliances, heating, and more. 
+            The more energy you use, the higher the cost and impact on the environment.
+            <br><br>
+            On this website, you can <a href="{{ url_for('calculateUsage') }}">calculate your energy usage</a> by appliance and, 
+            if logged into an account, <a href="{{ url_for('trackUsage') }}">track it over time</a> to better understand your habits 
+            and find ways to save energy and money!
+            </p>
+        <figure>
+            <img src="{{ url_for('static', filename='img/energyusage1.jpg') }}" alt="Image on energy usage">
+        </figure>
+    </div>
+    <video muted autoplay controls>
+        <source src="{{ url_for('static', filename='vid/energyusagevid.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <br><br><br>
+    <h2 class="white">Getting a product installed</h2>
+    <div id="tab-info">
+        <div>
+            <div class="tab">
+                <button class="tablink" onclick="openTab(event, 'Step1')" id="defaultOpen">Step 1</button>
+                <button class="tablink" onclick="openTab(event, 'Step2')">Step 2</button>
+                <button class="tablink" onclick="openTab(event, 'Step3')">Step 3</button>
+                <button class="tablink" onclick="openTab(event, 'Step4')">Step 4</button>
+            </div>
+        </div>
+
+        <div>
+            <div id="Step1" class="tabcontent">
+                <h3>Find a product</h3>
+                <p>Find a product you would like in our products section!</p>
+            </div>
+    
+            <div id="Step2" class="tabcontent">
+                <h3>Book consultation</h3>
+                <p>Click on the product you would like to book a consultation for the product.</p>
+            </div>
+    
+            <div id="Step3" class="tabcontent">
+                <h3>Book installation</h3>
+                <p>If a consultation was successful, you will get an email with a link to book an installation.</p>
+            </div>
+    
+            <div id="Step4" class="tabcontent">
+                <h3>Installed</h3>
+                <p>You now have your product installed!</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script> // cookie banner
+        (function () {
+  
+            var infoBar = document.querySelector(".cookies-infobar");
+            var btnAccept = document.querySelector("#cookies-infobar-close");
+          
+            // Check if user has already accepted the notification
+            if(wasAccepted()) {
+              hideInfobar();
+              return;
+            }
+          
+            //listen for the click event on Accept button
+            btnAccept.addEventListener("click", function (e) {
+              e.preventDefault();
+              hideInfobar();
+              saveAcceptInCookies(7);
+            });
+          
+            //hide cookie info bar
+            function hideInfobar () {
+              infoBar.className = infoBar.classList.value + " cookies-infobar_accepted";
+            }
+          
+            // Check if user has already accepted the notification
+            function wasAccepted () {
+              return checkCookie() === "1";
+            }
+          
+            // get cookie
+            function checkCookie () {
+              var name = "cookieInfoHidden=";
+              var cookies = document.cookie.split(';');
+          
+              for(var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i];
+                  while (cookie.charAt(0)==' ') {
+                    cookie = cookie.substring(1);
+                  }
+          
+                  if (cookie.indexOf(name) === 0) {
+                    return cookie.substring(name.length, cookie.length);
+                  }
+              }
+              return "";
+            };
+          
+            //save cookie
+            function saveAcceptInCookies (daysOfValidity) {
+              var now = new Date();
+              var time = now.getTime() + (daysOfValidity * 24 * 60 * 60 * 1000);
+              var newTime = new Date(now.setTime(time));
+              
+              newTime = newTime.toUTCString();
+              
+              document.cookie = "cookieInfoHidden=1; expires=" + newTime + "; path=/";
+            }
+          
+          })();
+    </script>
+
+    <script>
+        function openTab(evt, step) {
+            var i, tabcontent, tablinks;
+
+            // get tab content
+            tabcontent = document.getElementsByClassName("tabcontent");
+            // loop through to hide all
+            for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            }
+            
+            // get tab link
+            tablinks = document.getElementsByClassName("tablink");
+            // loop through to remove 'active' class
+            for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            // show element with step id
+            document.getElementById(step).style.display = "block";
+            // add class 'active' to tab link
+            evt.currentTarget.className += " active";
+        }
+        
+        document.getElementById("defaultOpen").click();
+    </script>
+{% endblock scripts %}

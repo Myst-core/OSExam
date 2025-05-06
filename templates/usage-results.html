@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+    Results
+{% endblock title %}
+{% block heading %}
+    Calculate Energy Usage Results
+{% endblock heading %}
+{% block content %}
+    <div class="usage-results-content">
+        <p class="description">The boxes below contain your daily usage in Kilowatts per hour.</p>
+        <div class="result-box">
+            <input value="{{ total_energy }}" readonly>
+            <label>kWph</label>
+        </div>
+    </div>
+{% endblock content %}

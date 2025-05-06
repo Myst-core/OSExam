@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+    Schedule Consultation
+{% endblock title %}
+{% block heading %}
+    Schedule Consultation
+{% endblock heading %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for catagory, message in messages %}
+                    <li class="{{ catagory }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form id="form" class="white" action="/consultation-step2" method="post">
+        <div style="display: flex;">
+            <div>
+                <input name="fname" type="text" placeholder="Firstname"><br>
+                <input name="sname" type="text" placeholder="Surname"><br>
+                <input name="email" type="email" placeholder="Email"><br>
+                <input name="phone" type="text" placeholder="Phone number"><br>
+            </div>
+            <div>
+                <input name="addrline" type="text" placeholder="Address Line"><br>
+                <input name="towncity" type="text" placeholder="Town or City"><br>
+                <input name="county" type="text" placeholder="County"><br>
+                <input name="postcode" type="text" placeholder="Postcode" pattern="/[A-Z]{1,2}[0-9]{1,2}[A-Z]?\s?[0-9][A-Z]{2}/i"><br>
+            </div> 
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock content %}

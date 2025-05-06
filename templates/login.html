@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+    Login
+{% endblock title %}
+{% block heading %}
+    Login
+{% endblock heading %}
+{% block content %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for catagory, message in messages %}
+                    <li class="{{ catagory }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form id="form" action="/login" method="post" autocomplete="on">
+        <input type="email" name="email" id="email" placeholder="Email"><br>
+        <input type="password" name="password" id="password" placeholder="Password"><br>
+        <input type="checkbox" name="rememberMe" id="rememberMe">
+        <label class="white" for="rememberMe">Remember me?</label>
+
+        <p class="form-q white"">Don't have an account? <a class="white" href="{{ url_for('signUp') }}">Sign up</a></p>
+        <button type="submit">Log in</button>
+    </form>
+{% endblock content %}

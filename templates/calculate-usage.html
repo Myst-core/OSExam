@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}
+    Calculate Energy Usage
+{% endblock title %}
+{% block heading %}
+    Calculate Energy Usage
+{% endblock heading %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for catagory, message in messages %}
+                    <li class="{{ catagory }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <p class="description">
+        Here you can calculate your energy usage per appliance. Simply click the 'Add appliance' button,
+        select an appliance, and input the appliance's watts and the time you use that appliance in a day in hours.
+        It will automatically give you the kilowatts per hour reading in the 'Result' box.
+        When you are done adding appliances, you can select the 'Get total' button to see your total usage for that day.
+    </p>
+
+    <form action="/calculate-energy-usage" method="post">
+        <div id="usage-container">
+            <div id="usage-box">
+                <select name="appliance" id="appliance">
+                    <option>Choose Appliance</option>
+                    {% for appliance in appliances %}
+                        <option value="{{ appliance[1] }}">{{ appliance[1] }}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="usage-inputs">
+                    <label for="watts">Watts</label>
+                    <input type="number" name="watts" id="watts" onkeyup="calculate()" step="0.01" min="0">
+                    <label for="time">Time (in hours)</label>
+                    <input type="number" name="time" id="time" onkeyup="calculate()" step="0.01" min="0" max="24">
+                    <label for="minor-result">Result (KWph)</label>
+                    <input name="minor-result" id="minor-result" readonly>
+                </div>
+
+            </div>
+            
+        </div>
+
+        <button type="button" id="addAppliance" onclick="duplicate()">Add appliance</button>
+        <button type="submit">Get total</button>
+    </form>
+{% endblock content %}
+
+{% block scripts %}
+    <script>
+        function calculate(index) {
+            var watts = document.getElementById(`watts_${index}`).value;
+            var time = document.getElementById(`time_${index}`).value;
+        
+            var result = watts * time;
+            document.getElementById(`minor-result_${index}`).value = result;
+        }
+        
+    </script>
+
+    <script>
+        var counter = 1; // Start counter at 1 to match initial inputs
+        function duplicate() {
+            counter++; // Increment counter for each new appliance added
+            var original = document.getElementById('usage-box');
+            var copy = original.cloneNode(true);
+
+            copy.id = `usage-box_${counter}`; // Update the ID of the cloned box
+            
+            var inputs = copy.querySelectorAll("input");
+            inputs.forEach((input) => {
+                if (input.name === "watts") {
+                    input.id = `watts_${counter}`;
+                    input.name = `watts_${counter}`;
+                    input.setAttribute("onkeyup", `calculate(${counter})`);
+                
+                } else if (input.name === "time") {
+                    input.id = `time_${counter}`;
+                    input.name = `time_${counter}`;
+                    input.setAttribute("onkeyup", `calculate(${counter})`);
+                
+                } else if (input.name === "minor-result") {
+                    input.id = `minor-result_${counter}`;
+                    input.name = `minor-result_${counter}`;
+                }
+            });
+
+            original.parentNode.appendChild(copy);
+        }
+    </script>
+
+{% endblock scripts %}

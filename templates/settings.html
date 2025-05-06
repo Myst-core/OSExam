@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+    Settings
+{% endblock title %}
+{% block heading %}
+    Settings
+{% endblock heading %}
+{% block content %}
+    <div class="settings">
+        <div class="settings-links">
+            <a href="#data">Your data</a>
+
+            <a href="#cookies">Cookies</a>
+        </div>
+        <div class="settings-main">
+    
+            <h2 class="white" id="data">Your data</h2>
+            <div class="settings-content">
+                <h3>Privacy Policy</h3>
+                <p>
+                    Our privacy policy outlines what data we collect about you.
+                    You can find it here: <a href="{{ url_for('policies') }}">Privacy Policy</a>
+                </p>
+            </div>
+
+            <h2 class="white" id="cookies">Cookies</h2>
+            <div class="settings-content">
+                <h3>Cookie Policy</h3>
+                <p>
+                    Our cookie policy outlines what cookies we collect and use.
+                    You can find it here: <a href="{{ url_for('policies') }}">Cookie Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

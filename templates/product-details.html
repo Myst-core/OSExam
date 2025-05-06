@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ product[1] }}
+{% endblock title %}
+{% block heading %}
+    {{ product[1] }}
+{% endblock heading %}
+{% block content %}
+<form id="form" method="post">
+    <div class="product-box" style="display: flex;">
+        {% if product[7] %}
+            <img class="product-img" src="{{ url_for('static', filename='img/product[7]') }}" alt="Product photo">
+        {% else %}
+            <img class="product-img" src="{{ url_for('static', filename='img/placeholder-img.png') }}" alt="Placeholder photo"> 
+        {% endif %}
+
+        <div style="display: block">
+            <p class="product-desc">
+                {{ product[4] }} <!-- product description -->
+            </p>
+            <p>
+                {{ product[2] }} <!-- product company -->
+            </p>
+            <button value="consult" name="appoint">Schedule Consultation</button>
+            <button value="install" name="appoint">Schedule Installation</button>
+        </div>
+    </div>
+    <p style="max-width: 200px;">£{{ product[3] }}</p> <!-- product price -->
+</form>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+    Success
+{% endblock title %}
+{% block heading %}
+    Success
+{% endblock heading %}
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for catagory, message in messages %}
+                    <li class="{{ catagory }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <a class="white" href="{{ url_for('home') }}">Back to home page</a>
+{% endblock content %}

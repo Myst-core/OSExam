@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+    Schedule Installation
+{% endblock title %}
+{% block heading %}
+    Schedule Installation
+{% endblock heading %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for catagory, message in messages %}
+                    <li class="{{ catagory }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form id="form" class="white" action="/installation-step3" method="post">
+        <div>
+            <input name="namecard" type="text" placeholder="Name on card"><br>
+            <input name="cardnum" type="text" placeholder="Card number"><br>
+            <input name="seccode" type="text" placeholder="Security code"><br>
+            <label for="expdate">Expiry date:</label><br>
+            <input name="expdate" type="month"><br><!-- format YYYY-MM -->
+        </div>
+            
+        <button type="submit">Submit</button>
+    </form>
+{% endblock content %}
