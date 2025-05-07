@@ -24,7 +24,7 @@ The brief also gave features they would **like**:
 
 1. Download the ZIP file of the code and unzip the file
 
-2. Open the now unzipped code in a code editor, I use Visual Studio Code and it is what i will be referencing for the rest of this tutorial.
+2. Open the now unzipped code in a code editor, I use Visual Studio Code and it is what I will be referencing for the rest of this tutorial.
 
 3. Next, you will need to create a virtual environment. You will need Python installed to do this. You can follow [this](https://code.visualstudio.com/docs/python/environments#_creating-environments) tutorial by the official docs of Visual Studio Code. You will need to create a Venv environment.
 
